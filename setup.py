@@ -26,7 +26,7 @@ long_description = (
 )
 
 setup(name='mkdocs-wavedrom-plugin',
-      version='0.1.1',
+      version='0.1.2',
       description='A MkDocs plugin for support '
                   'wavedrom charts in markdown file',
       long_description=long_description + "\n\n" + readme(),

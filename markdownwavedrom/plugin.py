@@ -10,6 +10,18 @@ from mkdocs.plugins import BasePlugin
 from bs4 import BeautifulSoup
 import wavedrom
 
+# Copied from https://github.com/facelessuser/pymdown-extensions/blob/a8fb9666566dfb7e86094082860b5616885d35f4/pymdownx/superfences.py#L83
+def _escape(txt):
+    """Basic html escaping."""
+
+    txt = txt.replace('&', '&amp;')
+    txt = txt.replace('<', '&lt;')
+    txt = txt.replace('>', '&gt;')
+    return txt
+
+# for pymdownx
+def fence_wavedrom_format(source, language, class_name, options, md, **kwargs):
+    return '<script type="WaveDrom">%s</script>' % (_escape(source))
 
 class WavedromConfig(mkdocs.config.base.Config):
     embed_svg = mkdocs.config.config_options.Type(bool, default=False)

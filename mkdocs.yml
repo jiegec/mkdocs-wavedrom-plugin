@@ -11,6 +11,6 @@ extra_javascript:
     # - wavedrom.unpkg.js
     # - skin-default.js
     # from internet.
-    - https://cdn.jsdelivr.net/npm/wavedrom@2.1.2/wavedrom.unpkg.js
+    - https://cdn.jsdelivr.net/npm/wavedrom@3.1.0/wavedrom.min.js
     - https://wavedrom.com/skins/default.js
 

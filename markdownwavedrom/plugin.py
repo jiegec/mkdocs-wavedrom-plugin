@@ -4,9 +4,11 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 #
+from io import StringIO
 from typing import Text
 from mkdocs.plugins import BasePlugin  # type: ignore
 from bs4 import BeautifulSoup          # type: ignore
+import wavedrom
 
 
 class MarkdownWavedromPlugin(BasePlugin):
@@ -18,11 +20,13 @@ class MarkdownWavedromPlugin(BasePlugin):
         f_exists = False
         for section in sections:
             f_exists = True
-            # replace code with div
-            section.name = "script"
-            section["type"] = "WaveDrom"
-            # replace <pre>
-            section.parent.replace_with(section)
+            # render wavedrom to svg
+            json = section.get_text()
+            svg = wavedrom.render(json).tostring()
+            new_soup = BeautifulSoup(svg, 'html.parser')
+
+            # embed svg into html
+            section.parent.replace_with(new_soup)
 
         if f_exists:
             new_tag = soup.new_tag("script")

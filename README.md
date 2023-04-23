@@ -40,7 +40,7 @@ change mkdocs.yml to use this plugin.
 ```yaml
 site_name: test
 plugins:
-    - markdownwavedrom
+    - wavedrom
 
 extra_javascript:
     # - wavedrom.unpkg.js

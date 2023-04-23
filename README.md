@@ -1,7 +1,7 @@
 mkdocs-wavedrom-plugin
 =========================================================
 
-A MkDocs plugin,  
+A MkDocs plugin,
 render waveform charts in the wavedrom style.
 
 Installation
@@ -41,6 +41,7 @@ change mkdocs.yml to use this plugin.
 site_name: test
 plugins:
     - wavedrom
+        embed_svg: false # true if embedding svg in html
 
 extra_javascript:
     # - wavedrom.unpkg.js
@@ -77,8 +78,7 @@ $ make download
 Thanks
 --------------------------
 
-a lot part of this plugin  
-were came from mkdocs-mermaid-plugin
+a lot part of this plugin were came from mkdocs-mermaid-plugin
 
 
 <!--

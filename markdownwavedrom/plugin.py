@@ -17,7 +17,10 @@ class WavedromConfig(mkdocs.config.base.Config):
 
 class WavedromPlugin(BasePlugin[WavedromConfig]):
     def on_pre_build(self, config, **kwargs):
-        self.embed_svg = config["embed_svg"]
+        if "embed_svg" in config:
+            self.embed_svg = config["embed_svg"]
+        else:
+            self.embed_svg = False
 
     def on_post_page(self, output_content, config, **kwargs):
         soup = BeautifulSoup(output_content, "html.parser")

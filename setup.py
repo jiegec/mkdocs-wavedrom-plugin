@@ -54,5 +54,5 @@ setup(name='mkdocs-wavedrom-plugin',
                    'Programming Language :: Python :: 3.7'],
       packages=find_packages(exclude=['*.tests']),
       entry_points={'mkdocs.plugins': [
-            'wavedrom = markdownwavedrom.plugin:MarkdownWavedromPlugin'
+            'wavedrom = markdownwavedrom.plugin:WavedromPlugin'
       ]})

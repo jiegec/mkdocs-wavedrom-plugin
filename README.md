@@ -51,6 +51,16 @@ extra_javascript:
     - https://cdnjs.cloudflare.com/ajax/libs/wavedrom/3.1.0/wavedrom.min.js
 ```
 
+If you use pymdownx.superfences, add the following config:
+
+```yaml
+  - pymdownx.superfences:
+      custom_fences:
+        - name: wavedrom
+          class: wavedrom
+          format: !!python/name:markdownwavedrom.plugin.fence_wavedrom_format
+```
+
 
 Demo
 --------------------------

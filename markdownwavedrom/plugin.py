@@ -56,6 +56,11 @@ class WavedromPlugin(BasePlugin[WavedromConfig]):
                 # replace <pre>
                 section.parent.replace_with(section)
 
+        # pymdownx
+        if len(soup.find_all("script", type="WaveDrom")) > 0:
+            f_exists = True
+
+
         if f_exists and not self.embed_svg:
             new_tag = soup.new_tag("script")
             new_tag.string = (

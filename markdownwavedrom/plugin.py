@@ -33,12 +33,12 @@ class WavedromConfig(mkdocs.config.base.Config):
 
 class WavedromPlugin(BasePlugin[WavedromConfig]):
     def on_pre_build(self, config, **kwargs):
-        if "embed_svg" in config:
-            self.embed_svg = config["embed_svg"]
+        if "embed_svg" in self.config:
+            self.embed_svg = self.config["embed_svg"]
         else:
             self.embed_svg = False
-        if "pymdownx" in config:
-            self.pymdownx = config["pymdownx"]
+        if "pymdownx" in self.config:
+            self.pymdownx = self.config["pymdownx"]
         else:
             self.pymdownx = False
 

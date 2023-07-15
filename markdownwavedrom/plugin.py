@@ -10,21 +10,25 @@ from mkdocs.plugins import BasePlugin
 from bs4 import BeautifulSoup
 import wavedrom
 
+
 # Copied from https://github.com/facelessuser/pymdown-extensions/blob/a8fb9666566dfb7e86094082860b5616885d35f4/pymdownx/superfences.py#L83
 def _escape(txt):
     """Basic html escaping."""
 
-    txt = txt.replace('&', '&amp;')
-    txt = txt.replace('<', '&lt;')
-    txt = txt.replace('>', '&gt;')
+    txt = txt.replace("&", "&amp;")
+    txt = txt.replace("<", "&lt;")
+    txt = txt.replace(">", "&gt;")
     return txt
+
 
 # for pymdownx
 def fence_wavedrom_format(source, language, class_name, options, md, **kwargs):
     return '<script type="WaveDrom">%s</script>' % (_escape(source))
 
+
 class WavedromConfig(mkdocs.config.base.Config):
     embed_svg = mkdocs.config.config_options.Type(bool, default=False)
+    pymdownx = mkdocs.config.config_options.Type(bool, default=False)
 
 
 class WavedromPlugin(BasePlugin[WavedromConfig]):
@@ -33,8 +37,21 @@ class WavedromPlugin(BasePlugin[WavedromConfig]):
             self.embed_svg = config["embed_svg"]
         else:
             self.embed_svg = False
+        if "pymdownx" in config:
+            self.pymdownx = config["pymdownx"]
+        else:
+            self.pymdownx = False
 
     def on_post_page(self, output_content, config, **kwargs):
+        if self.pymdownx:
+            # bs4 is slow in parsing large html, use string instead
+            if "WaveDrom" in output_content:
+                output_content = output_content.replace(
+                    "</body>",
+                    "<script>window.addEventListener('load', function() {WaveDrom.ProcessAll();});</script></body>",
+                )
+            return output_content
+
         soup = BeautifulSoup(output_content, "html.parser")
         sections = soup.find_all("code", class_="language-wavedrom")
 
@@ -59,7 +76,6 @@ class WavedromPlugin(BasePlugin[WavedromConfig]):
         # pymdownx
         if len(soup.find_all("script", type="WaveDrom")) > 0:
             f_exists = True
-
 
         if f_exists and not self.embed_svg:
             new_tag = soup.new_tag("script")

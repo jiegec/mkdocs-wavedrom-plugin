@@ -1,6 +1,6 @@
 site_name: test
 plugins:
-    - wavedrom
+    - wavedrom:
 
 nav:
     - 'README.md'

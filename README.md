@@ -42,6 +42,7 @@ site_name: test
 plugins:
     - wavedrom
         embed_svg: false # true if embedding svg in html
+        pymdownx: false # true if using pymdownx
 
 extra_javascript:
     # - wavedrom.unpkg.js

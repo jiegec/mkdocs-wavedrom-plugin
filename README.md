@@ -82,6 +82,8 @@ extra_javascript:
     # - https://cdnjs.cloudflare.com/ajax/libs/wavedrom/3.1.0/wavedrom.min.js
 ```
 
+If you use `navigation.instant` with mkdocs-material, `embed_svg: true` and `pymdownx: true` are required for instant navigation to work properly with wavedrom.
+
 Demo
 --------------------------
 

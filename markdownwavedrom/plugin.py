@@ -43,6 +43,10 @@ class WavedromPlugin(BasePlugin[WavedromConfig]):
             self.pymdownx = False
 
     def on_post_page(self, output_content, config, **kwargs):
+        # optimization: do not run expensive parse when wavedrom is not used
+        if not "WaveDrom" in output_content and not "wavedrom" in output_content:
+            return
+
         if self.pymdownx and not self.embed_svg:
             # bs4 is slow in parsing large html, use string instead
             if "WaveDrom" in output_content:

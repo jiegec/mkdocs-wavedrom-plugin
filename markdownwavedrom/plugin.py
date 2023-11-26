@@ -43,7 +43,7 @@ class WavedromPlugin(BasePlugin[WavedromConfig]):
             self.pymdownx = False
 
     def on_post_page(self, output_content, config, **kwargs):
-        if self.pymdownx:
+        if self.pymdownx and not self.embed_svg:
             # bs4 is slow in parsing large html, use string instead
             if "WaveDrom" in output_content:
                 output_content = output_content.replace(
@@ -53,7 +53,10 @@ class WavedromPlugin(BasePlugin[WavedromConfig]):
             return output_content
 
         soup = BeautifulSoup(output_content, "html.parser")
-        sections = soup.find_all("code", class_="language-wavedrom")
+        if self.pymdownx:
+            sections = soup.find_all("script", type="WaveDrom")
+        else:
+            sections = soup.find_all("code", class_="language-wavedrom")
 
         f_exists = False
         for section in sections:
@@ -65,13 +68,19 @@ class WavedromPlugin(BasePlugin[WavedromConfig]):
                 new_soup = BeautifulSoup(svg, "html.parser")
 
                 # embed svg into html
-                section.parent.replace_with(new_soup)
             else:
                 # replace code with script
-                section.name = "script"
-                section["type"] = "WaveDrom"
+                new_soup = section
+                new_soup.name = "script"
+                new_soup["type"] = "WaveDrom"
+            
+            # replace existing element
+            if section.name == "code":
                 # replace <pre>
-                section.parent.replace_with(section)
+                section.parent.replace_with(new_soup)
+            else:
+                # replace <script>
+                section.replace_with(new_soup)
 
         # pymdownx
         if len(soup.find_all("script", type="WaveDrom")) > 0:

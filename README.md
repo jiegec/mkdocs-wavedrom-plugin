@@ -55,6 +55,11 @@ extra_javascript:
 If you use pymdownx.superfences, add the following config:
 
 ```yaml
+plugins:
+    - wavedrom
+        embed_svg: false # true if embedding svg in html
+        pymdownx: false # true if using pymdownx
+markdown_extensions:
   - pymdownx.superfences:
       custom_fences:
         - name: wavedrom

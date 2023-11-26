@@ -63,11 +63,10 @@ class WavedromPlugin(BasePlugin[WavedromConfig]):
             f_exists = True
             if self.embed_svg:
                 # render wavedrom to svg
+                # and embed svg into html
                 json = section.get_text()
                 svg = wavedrom.render(json).tostring()
                 new_soup = BeautifulSoup(svg, "html.parser")
-
-                # embed svg into html
             else:
                 # replace code with script
                 new_soup = section

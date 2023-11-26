@@ -67,6 +67,20 @@ markdown_extensions:
           format: !!python/name:markdownwavedrom.plugin.fence_wavedrom_format
 ```
 
+You can convert wavedrom json to svg when building:
+
+```yaml
+plugins:
+    - wavedrom
+        embed_svg: true # true if embedding svg in html
+        pymdownx: false # true if using pymdownx
+# no longer required to include these javascript sources
+extra_javascript:
+    # - wavedrom.unpkg.js
+    # - skin-default.js
+    # - https://cdnjs.cloudflare.com/ajax/libs/wavedrom/3.1.0/skins/default.js
+    # - https://cdnjs.cloudflare.com/ajax/libs/wavedrom/3.1.0/wavedrom.min.js
+```
 
 Demo
 --------------------------
